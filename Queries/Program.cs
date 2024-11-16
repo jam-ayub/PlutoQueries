@@ -10,13 +10,13 @@ namespace Queries
             var context = new PlutoContext();
 
             // LINQ Syntax
-            var query = from c in context.Courses 
-                        join a in context.Authors on c.AuthorId equals a.Id
-                        select new { CourseName = c.Name, AuthorName = a.Name};
+            var query = from a in context.Authors
+                        join c in context.Courses on a.Id equals c.AuthorId into g
+                        select new { AuthorName = a.Name, Courses = g.Count() };
 
             foreach (var group in query)
             {
-                Console.WriteLine("{0} ({1})", group.CourseName, group.AuthorName);
+                Console.WriteLine("{0} ({1})", group.AuthorName, group.Courses);
             }
 
             Console.ReadLine();
