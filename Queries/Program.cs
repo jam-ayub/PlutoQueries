@@ -13,7 +13,7 @@ namespace Queries
             var query = from c in context.Courses 
                         where c.Author.Id == 1
                         orderby c.Level descending, c.Name
-                        select c;
+                        select new { Name = c.Name, Author = c.Author.Name};
 
             foreach (var course in query)
                 Console.WriteLine(course.Name);
