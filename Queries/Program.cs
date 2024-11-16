@@ -11,13 +11,12 @@ namespace Queries
 
             // LINQ Syntax
             var query = from c in context.Courses 
-                        group c by c.Level
-                        into g
-                        select g;
+                        join a in context.Authors on c.AuthorId equals a.Id
+                        select new { CourseName = c.Name, AuthorName = a.Name};
 
             foreach (var group in query)
             {
-                Console.WriteLine("{0} ({1})", group.Key, group.Count());
+                Console.WriteLine("{0} ({1})", group.CourseName, group.AuthorName);
             }
 
             Console.ReadLine();
