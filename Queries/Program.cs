@@ -13,11 +13,12 @@ namespace Queries
             var query = context.Courses
                 .Where(c => c.Level == 1)
                 .OrderBy(c => c.Name)
-                .ThenBy(c => c.Level);
+                .ThenBy(c => c.Level)
+                .SelectMany(c => c.Tags);
 
             foreach (var group in query)
             {
-                Console.WriteLine("{0} - ({1})", group.Level, group.Name);
+                Console.WriteLine("{0} - ({1})", group.Id, group.Name);
             }
 
             Console.ReadLine();
