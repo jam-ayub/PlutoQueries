@@ -14,7 +14,8 @@ namespace Queries
                 .Where(c => c.Level == 1)
                 .OrderBy(c => c.Name)
                 .ThenBy(c => c.Level)
-                .SelectMany(c => c.Tags);
+                .SelectMany(c => c.Tags)
+                .Distinct();
 
             foreach (var group in query)
             {
