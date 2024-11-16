@@ -11,12 +11,17 @@ namespace Queries
 
             // LINQ Syntax
             var query = from c in context.Courses 
-                        where c.Author.Id == 1
-                        orderby c.Level descending, c.Name
-                        select new { Name = c.Name, Author = c.Author.Name};
+                        group c by c.Level
+                        into g
+                        select g;
 
-            foreach (var course in query)
-                Console.WriteLine(course.Name);
+            foreach (var group in query)
+            {
+                Console.WriteLine(group.Key);
+
+                foreach (var course in group)
+                    Console.WriteLine("\t{0}", course.Name);
+            }
 
             Console.ReadLine();
         }
