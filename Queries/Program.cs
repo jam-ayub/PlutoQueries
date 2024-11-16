@@ -10,18 +10,19 @@ namespace Queries
             var context = new PlutoContext();
 
             // Extention Methods Syntax
-            var query = context.Courses
-                .GroupBy(c => c.Level);
+            var query = context.Courses.Join(
+                context.Authors, 
+                c => c.AuthorId, 
+                a => a.Id, 
+                (course, author) => new 
+                    {
+                        CourseName = course.Name,
+                        AuthorName = author.Name,
+                    });
 
             foreach (var group in query)
             {
-                Console.WriteLine("Key: ", group);
-
-                foreach (var item in group)
-                { 
-                    Console.WriteLine("\t", item.Name); 
-                }
-                //Console.WriteLine("{0} - ({1})", group.Id, group.Name);
+                Console.WriteLine("{0} - ({1})", group.AuthorName, group.CourseName);
             }
 
             Console.ReadLine();
