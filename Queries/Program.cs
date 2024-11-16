@@ -15,7 +15,15 @@ namespace Queries
                         orderby c.Name
                         select c;
 
-            foreach (var course in query)
+            //foreach (var course in query)
+            //    Console.WriteLine(course.Name);
+
+            // Extention Methods
+            var courses = context.Courses
+                .Where(c => c.Name.Contains("c#"))
+                .OrderBy(c => c.Name);
+
+            foreach (var course in courses)
                 Console.WriteLine(course.Name);
 
             Console.ReadLine();
