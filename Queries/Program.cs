@@ -11,15 +11,17 @@ namespace Queries
 
             // Extention Methods Syntax
             var query = context.Courses
-                .Where(c => c.Level == 1)
-                .OrderBy(c => c.Name)
-                .ThenBy(c => c.Level)
-                .SelectMany(c => c.Tags)
-                .Distinct();
+                .GroupBy(c => c.Level);
 
             foreach (var group in query)
             {
-                Console.WriteLine("{0} - ({1})", group.Id, group.Name);
+                Console.WriteLine("Key: ", group);
+
+                foreach (var item in group)
+                { 
+                    Console.WriteLine("\t", item.Name); 
+                }
+                //Console.WriteLine("{0} - ({1})", group.Id, group.Name);
             }
 
             Console.ReadLine();
