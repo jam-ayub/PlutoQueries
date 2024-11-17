@@ -18,9 +18,9 @@ namespace Queries
                     CoursesName = course.Name
                 });
 
-            // Quantifying
-            context.Courses.All(x => x.FullPrice > 100);
-            context.Courses.Any(x => x.Level == 1);
+            // Aggregating
+            // .Count .Min .Max .Average these all are aggregate functions
+            context.Courses.Count();
 
             foreach (var group in query)
             {
