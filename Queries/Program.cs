@@ -18,8 +18,9 @@ namespace Queries
                     CoursesName = course.Name
                 });
 
-            // Partitioning
-            var partitioningQuery = context.Courses.Skip(10).Take(10);
+            // Element Operators
+            context.Courses.OrderBy(x => x.Level).FirstOrDefault(x => x.FullPrice > 100);
+            context.Courses.SingleOrDefault(x => x.Id == 1);
 
             foreach (var group in query)
             {
