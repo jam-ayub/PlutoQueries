@@ -18,9 +18,9 @@ namespace Queries
                     CoursesName = course.Name
                 });
 
-            // Element Operators
-            context.Courses.OrderBy(x => x.Level).FirstOrDefault(x => x.FullPrice > 100);
-            context.Courses.SingleOrDefault(x => x.Id == 1);
+            // Quantifying
+            context.Courses.All(x => x.FullPrice > 100);
+            context.Courses.Any(x => x.Level == 1);
 
             foreach (var group in query)
             {
