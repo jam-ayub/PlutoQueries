@@ -18,6 +18,9 @@ namespace Queries
                     CoursesName = course.Name
                 });
 
+            // Partitioning
+            var partitioningQuery = context.Courses.Skip(10).Take(10);
+
             foreach (var group in query)
             {
                 Console.WriteLine("{0} - ({1})", group.AuthorName, group.CoursesName);
