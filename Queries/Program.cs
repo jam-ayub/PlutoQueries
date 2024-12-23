@@ -10,10 +10,15 @@ namespace Queries
         {
             var context = new PlutoContext();
 
-            //This will include Auther in the query that EF send to DB and Solve N+1 Problem
-            var query = context.Courses.Include(c => c.Author).ToList();
+            var auther = context.Authors.Include(a => a.Courses).Single(a => a.Id ==1);
+            
+            //MSD Way
+            context.Entry(auther).Collection(a => a.Courses).Query().Where(c => c.FullPrice == 0).Load();
 
-            foreach (var group in query)
+            //Better way
+            context.Courses.Where(c => c.AuthorId == auther.Id && c.FullPrice == 0).Load();
+
+            foreach (var group in auther.Courses)
             {
                 Console.WriteLine("{0} - ({1})", group.Name, group.Author.Name);
             }
