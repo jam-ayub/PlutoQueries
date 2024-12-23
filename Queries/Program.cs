@@ -9,22 +9,13 @@ namespace Queries
         {
             var context = new PlutoContext();
 
-            // Extention Methods Syntax
-            var query = context.Authors.SelectMany(
-                a => context.Courses, 
-                (author, course) => new
-                {
-                    AuthorName = author.Name,
-                    CoursesName = course.Name
-                });
-
-            // Aggregating
-            // .Count .Min .Max .Average these all are aggregate functions
-            context.Courses.Count();
-
-            foreach (var group in query)
+            
+            var query = context.Courses.Single(c=>c.Id == 2);
+            // EF first send query to get courses
+            // Then send another query to get Tags when they are needed
+            foreach (var group in query.Tags)
             {
-                Console.WriteLine("{0} - ({1})", group.AuthorName, group.CoursesName);
+                Console.WriteLine("{0} - ({1})", group.Id, group.Name);
             }
 
             Console.ReadLine();
