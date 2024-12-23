@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Queries
@@ -9,11 +10,9 @@ namespace Queries
         {
             var context = new PlutoContext();
 
-            
-            var query = context.Courses.ToList();
+            //This will include Auther in the query that EF send to DB and Solve N+1 Problem
+            var query = context.Courses.Include(c => c.Author).ToList();
 
-            //Here EF Send query to get courses and for each couse it send another query to get Author
-            //This is an N+1 Problem as to get N courses we need to send 1 another query to DB to get Authers
             foreach (var group in query)
             {
                 Console.WriteLine("{0} - ({1})", group.Name, group.Author.Name);
