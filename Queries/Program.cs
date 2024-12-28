@@ -10,18 +10,17 @@ namespace Queries
         {
             var context = new PlutoContext();
 
-            var auther = context.Authors.Include(a => a.Courses).Single(a => a.Id ==1);
-            
-            //MSD Way
-            context.Entry(auther).Collection(a => a.Courses).Query().Where(c => c.FullPrice == 0).Load();
+            var authers = context.Authors.ToList();
+            var auther = context.Authors.Single(x => x.Id == 1);
 
-            //Better way
-            context.Courses.Where(c => c.AuthorId == auther.Id && c.FullPrice == 0).Load();
-
-            foreach (var group in auther.Courses)
+            var course = new Course
             {
-                Console.WriteLine("{0} - ({1})", group.Name, group.Author.Name);
-            }
+                Name = "New Course",
+                Description = "Math Course",
+                FullPrice = 0,
+                Level = 1,
+                Author = auther
+            };
 
             Console.ReadLine();
         }
