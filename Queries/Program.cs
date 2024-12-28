@@ -11,7 +11,7 @@ namespace Queries
             var context = new PlutoContext();
 
             var authers = context.Authors.Find(1);
-            authers.Name = "Jam Ayub";
+            context.Authors.Remove(authers);
 
             Console.ReadLine();
         }
